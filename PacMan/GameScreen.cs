@@ -17,9 +17,7 @@ namespace PacMan
         int biteTimer;
         bool mouthOpen;
 
-        List<Ghost> ghosts = new List<Ghost>(new Ghost[] {
-            new Ghost(160, 185, "none", new Pen(Color.Red), new SolidBrush(Color.Red)), new Ghost(160, 185, "none", new Pen(Color.Turquoise), new SolidBrush(Color.Turquoise)), new Ghost(160, 185, "none", new Pen(Color.Pink), new SolidBrush(Color.Pink)), new Ghost(160, 185, "none", new Pen(Color.Orange), new SolidBrush(Color.Orange))
-        });
+        List<Ghost> ghosts = new List<Ghost>();
 
         public static int score;
 
@@ -68,8 +66,12 @@ namespace PacMan
 
         public void InitializeGame()
         {
+            // Set all values
             gameEngine.Enabled = true;
             hero = new Player(160, 325, "none");
+            ghosts = new List<Ghost>(new Ghost[] {
+                new Ghost(160, 185, "none", new Pen(Color.Red), new SolidBrush(Color.Red)), new Ghost(160, 185, "none", new Pen(Color.Turquoise), new SolidBrush(Color.Turquoise)), new Ghost(160, 185, "none", new Pen(Color.Pink), new SolidBrush(Color.Pink)), new Ghost(160, 185, "none", new Pen(Color.Orange), new SolidBrush(Color.Orange))
+            });
             biteTimer = 0;
             mouthOpen = false;
             newDirection = "none";
@@ -78,6 +80,7 @@ namespace PacMan
 
             pointDotsList.Clear();
 
+            // This list and the following foreach loop just makes it so I don't have to write out the coordinates of each point dot. Instead, they are created in sections
             List<PointDot> pointDotStorage = new List<PointDot>(new PointDot[] {
                 new PointDot(17, 72, 12, true), new PointDot(185, 72, 12, true), new PointDot(17, 122, 26, true), new PointDot(17, 157, 6, true), new PointDot(112, 157, 4, true), new PointDot(185, 157, 4, true), new PointDot(257, 157, 6, true), new PointDot(17, 297, 12, true), new PointDot(185, 297, 12, true), new PointDot(17, 335, 3, true), new PointDot(77, 335, 7, true), new PointDot(185, 335, 7, true), new PointDot(292, 335, 3, true), new PointDot(17, 370, 6, true), new PointDot(112, 370, 4, true), new PointDot(185, 370, 4, true), new PointDot(257, 370, 6, true), new PointDot(17, 405, 26, true), new PointDot(17, 85, 3, false), new PointDot(77, 85, 3, false),new PointDot(149, 85, 3, false), new PointDot(185, 85, 3, false), new PointDot(257, 85, 3, false), new PointDot(317, 85, 3, false), new PointDot(17, 135, 2, false), new PointDot(77, 135, 2, false), new PointDot(112, 135, 2, false), new PointDot(222, 135, 2, false), new PointDot(257, 135, 2, false), new PointDot(317, 135, 2, false), new PointDot(77, 170, 11, false), new PointDot(257, 170, 11, false), new PointDot(17, 310, 2, false), new PointDot(77, 310, 2, false), new PointDot(149, 310, 2, false), new PointDot(185, 310, 2, false), new PointDot(257, 310, 2, false), new PointDot(317, 310, 2, false), new PointDot(42, 347, 2, false), new PointDot(77, 347, 2, false), new PointDot(112, 347, 2, false), new PointDot(222, 347, 2, false), new PointDot(257, 347, 2, false), new PointDot(292, 347, 2, false), new PointDot(17, 383, 2, false), new PointDot(149, 383, 2, false), new PointDot(185, 383, 2, false), new PointDot(317, 383, 2, false)
             });
