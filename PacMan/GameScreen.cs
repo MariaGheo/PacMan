@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace PacMan
 {
@@ -16,9 +17,13 @@ namespace PacMan
         int biteTimer;
         bool mouthOpen;
 
-        int score;
+        List<Ghost> ghosts = new List<Ghost>(new Ghost[] {
+            new Ghost(160, 185, "none", new Pen(Color.Red), new SolidBrush(Color.Red)), new Ghost(160, 185, "none", new Pen(Color.Turquoise), new SolidBrush(Color.Turquoise)), new Ghost(160, 185, "none", new Pen(Color.Pink), new SolidBrush(Color.Pink)), new Ghost(160, 185, "none", new Pen(Color.Orange), new SolidBrush(Color.Orange))
+        });
 
-        //Random randGen = new Random();
+        public static int score;
+
+        Random randGen = new Random();
 
         string newDirection;
 
@@ -48,9 +53,9 @@ namespace PacMan
             new Rectangle(30, 85, 35, 25), new Rectangle(90, 85, 47, 25), new Rectangle(30, 135, 35, 10), new Rectangle(90, 240, 10, 45), new Rectangle(90, 310, 47, 10), new Rectangle(198, 85, 47, 25), new Rectangle(270, 85, 35, 25), new Rectangle(270, 135, 35, 10), new Rectangle(235, 240, 10, 45), new Rectangle(198, 310, 47, 10), new Rectangle(125, 205, 85, 45)
         };
 
-        TurnPoint[] turnPoints = 
+        TurnPoint[] turnPoints =
         {
-            new TurnPoint(15, 70, false, true, false, true), new TurnPoint(75, 70, false, true, true, true), new TurnPoint(147, 70, false, true, true, false), new TurnPoint(183, 70, false, true, false, true), new TurnPoint(255, 70, false, true, true, true), new TurnPoint(315, 70, false, true, true, false), new TurnPoint(15, 120, true, true, false, true), new TurnPoint(75, 120, true, true, true, true), new TurnPoint(110, 120, false, true, true, true), new TurnPoint(147, 120, true, false, true, true), new TurnPoint(183, 120, true, false, true, true), new TurnPoint(220, 120, false, true, true, true), new TurnPoint(255, 120, true, true, true, true), new TurnPoint(315, 120, true, true, true, false), new TurnPoint(15, 155, true, false, false, true), new TurnPoint(75, 155, true, true, true, false), new TurnPoint(110, 155, true, false, false, true), new TurnPoint(147, 155, false, true, true, false), new TurnPoint(183, 155, false, true, false, true), new TurnPoint(220, 155, true, false, true, false), new TurnPoint(255, 155, true, true, false, true), new TurnPoint(315, 155, true, false, true, false), new TurnPoint(110, 190, false, true, false, true), new TurnPoint(147, 190, true, false, true, true), new TurnPoint(183, 190, true, false, true, true), new TurnPoint(220, 190, false, true, true, false), new TurnPoint(75, 225, true, true, true, true), new TurnPoint(110, 225, true, true, true, false), new TurnPoint(220, 225, true, true, false, true), new TurnPoint(255, 225, true, true, true, true), new TurnPoint(110, 260, true, true, false, true), new TurnPoint(220, 260, true, true, true, false), new TurnPoint(15, 295, false, true, false, true), new TurnPoint(75, 295, true, true, true, true), new TurnPoint(110, 295, true, false, true, true), new TurnPoint(147, 295, false, true, true, false), new TurnPoint(183, 295, false, true, false, true), new TurnPoint(220, 295, true, false, true, true), new TurnPoint(255, 295, true, true, true, true), new TurnPoint(315, 295, false, true, true, false), new TurnPoint(15, 332, true, false, false, true), new TurnPoint(40, 332, false, true, true, false), new TurnPoint(75, 332, true, true, false, true), new TurnPoint(110, 332, false, true, true, true), new TurnPoint(147, 332, true, false, true, true), new TurnPoint(183, 332, true, false, true, true), new TurnPoint(220, 332, false, true, true, true), new TurnPoint(255, 332, true, true, true, false), new TurnPoint(290, 332, false, true, false, true), new TurnPoint(315, 332, true, false, true, false), new TurnPoint(15, 368, false, true, false, true), new TurnPoint(40, 368, true, false, true, true), new TurnPoint(75, 368, true, false, true, false), new TurnPoint(110, 368, true, false, false, true), new TurnPoint(147, 368, false, true, true, false), new TurnPoint(183, 368, false, true, false, true), new TurnPoint(220, 368, true, false, true, false), new TurnPoint(255, 368, true, false, false, true), new TurnPoint(290, 368, true, false, true, true), new TurnPoint(315, 368, false, true, true, false), new TurnPoint(15, 405, true, false, false, true), new TurnPoint(147, 405, true, false, true, true), new TurnPoint(183, 405, true, false, true, true), new TurnPoint(315, 405, true, false, true, false), new TurnPoint(165, 332, false, false, true, true)
+            new TurnPoint(15, 70, false, true, false, true), new TurnPoint(75, 70, false, true, true, true), new TurnPoint(147, 70, false, true, true, false), new TurnPoint(183, 70, false, true, false, true), new TurnPoint(255, 70, false, true, true, true), new TurnPoint(315, 70, false, true, true, false), new TurnPoint(15, 120, true, true, false, true), new TurnPoint(75, 120, true, true, true, true), new TurnPoint(110, 120, false, true, true, true), new TurnPoint(147, 120, true, false, true, true), new TurnPoint(183, 120, true, false, true, true), new TurnPoint(220, 120, false, true, true, true), new TurnPoint(255, 120, true, true, true, true), new TurnPoint(315, 120, true, true, true, false), new TurnPoint(15, 155, true, false, false, true), new TurnPoint(75, 155, true, true, true, false), new TurnPoint(110, 155, true, false, false, true), new TurnPoint(147, 155, false, true, true, false), new TurnPoint(183, 155, false, true, false, true), new TurnPoint(220, 155, true, false, true, false), new TurnPoint(255, 155, true, true, false, true), new TurnPoint(315, 155, true, false, true, false), new TurnPoint(110, 190, false, true, false, true), new TurnPoint(147, 190, true, false, true, true), new TurnPoint(183, 190, true, false, true, true), new TurnPoint(220, 190, false, true, true, false), new TurnPoint(75, 225, true, true, true, true), new TurnPoint(110, 225, true, true, true, false), new TurnPoint(220, 225, true, true, false, true), new TurnPoint(255, 225, true, true, true, true), new TurnPoint(110, 260, true, true, false, true), new TurnPoint(220, 260, true, true, true, false), new TurnPoint(15, 295, false, true, false, true), new TurnPoint(75, 295, true, true, true, true), new TurnPoint(110, 295, true, false, true, true), new TurnPoint(147, 295, false, true, true, false), new TurnPoint(183, 295, false, true, false, true), new TurnPoint(220, 295, true, false, true, true), new TurnPoint(255, 295, true, true, true, true), new TurnPoint(315, 295, false, true, true, false), new TurnPoint(15, 332, true, false, false, true), new TurnPoint(40, 332, false, true, true, false), new TurnPoint(75, 332, true, true, false, true), new TurnPoint(110, 332, false, true, true, true), new TurnPoint(147, 332, true, false, true, true), new TurnPoint(183, 332, true, false, true, true), new TurnPoint(220, 332, false, true, true, true), new TurnPoint(255, 332, true, true, true, false), new TurnPoint(290, 332, false, true, false, true), new TurnPoint(315, 332, true, false, true, false), new TurnPoint(15, 368, false, true, false, true), new TurnPoint(40, 368, true, false, true, true), new TurnPoint(75, 368, true, false, true, false), new TurnPoint(110, 368, true, false, false, true), new TurnPoint(147, 368, false, true, true, false), new TurnPoint(183, 368, false, true, false, true), new TurnPoint(220, 368, true, false, true, false), new TurnPoint(255, 368, true, false, false, true), new TurnPoint(290, 368, true, false, true, true), new TurnPoint(315, 368, false, true, true, false), new TurnPoint(15, 405, true, false, false, true), new TurnPoint(147, 405, true, false, true, true), new TurnPoint(183, 405, true, false, true, true), new TurnPoint(315, 405, true, false, true, false), new TurnPoint(165, 332, false, false, true, true), new TurnPoint(165, 192, false, false, true, true)
         };
 
         List<List<PointDot>> pointDotsList = new List<List<PointDot>>();
@@ -85,51 +90,159 @@ namespace PacMan
 
         private void gameEngine_Tick(object sender, EventArgs e)
         {
-            if (newDirection != "none")
+            // Update the player's direction
+            if (newDirection != "none") // if the player is pressing a move button
             {
-                //if the direction the player is trying to move to is the same or opposite of the current movement...
-                if (newDirection == hero.direction || ((newDirection == "up" || hero.direction == "up") && (newDirection == "down" || hero.direction == "down")) || ((newDirection == "left" || hero.direction == "left") && (newDirection == "right" || hero.direction == "right")))
+                // If the direction the player is trying to move to is the same or opposite of the current movement...
+                if (((newDirection == "up" || newDirection == "down") && (hero.direction == "up" || hero.direction == "down")) || ((newDirection == "left" || newDirection == "right") && (hero.direction == "left" || hero.direction == "right")))
                 {
-                    hero.direction = newDirection;
-
-                    if (!CheckTurnPoints(true, hero.direction))
+                    if (!CheckTurnPoints(true, hero.direction, hero)) // If the player is at a turn point where they can't go their desired direction...
                     {
-                        hero.direction = "none";
-                        biteTimer = 0;
-                        mouthOpen = false;
+                        hero.direction = "none"; // Stop moving the player
+                        mouthOpen = false; // Close pacman's mouth
+                        biteTimer = 0; // Reset the bite timer
                     }
-                }
-                else
-                {
-                    if (CheckTurnPoints(false, newDirection))
+                    else // Otherwise, set the hero to move in the new direction
                     {
                         hero.direction = newDirection;
                     }
                 }
-            }
-            else
-            {
-                if (!CheckTurnPoints(true, hero.direction))
+                else if (CheckTurnPoints(false, newDirection, hero)) // If the player is trying to move in a new direction that isn't opposite to where they are currently moving, and if the player can go that way, set the player's direction to the new direction
                 {
-                    hero.direction = "none";
-                    biteTimer = 0;
-                    mouthOpen = false;
+                    hero.direction = newDirection;
                 }
             }
+            else if (!CheckTurnPoints(true, hero.direction, hero))
+            {
+                hero.direction = "none";
+                biteTimer = 0;
+                mouthOpen = false;
+            }
 
+            // Move player
+            hero.Move();
+
+            // If the player is now off the screen (by travelling through the tunnel), move the player to the other end of the tunnel
+            if (hero.x < 0 - hero.size)
+            {
+                hero.x = 336;
+            }
+            else if (hero.x > 336)
+            {
+                hero.x = 0 - hero.size;
+            }
+
+            // Mouth animation (only when the player is moving)
             if (hero.direction != "none")
             {
-                biteTimer++;
+                biteTimer++; // Increase bite timer
 
-                if (biteTimer == 5)
+                if (biteTimer == 5) // Open/close mouth
                 {
                     mouthOpen = !mouthOpen;
                     biteTimer = 0;
                 }
             }
 
-            hero.Move();
+            // Determine ghost direction and move the ghost accordingly, then check if the ghost got to the player
+            foreach (Ghost ghost in ghosts)
+            {
+                // To track the index of the turn points
+                int index = 0;
 
+                // Go through turn points and figure out if it should change direction
+                foreach (TurnPoint turnPoint in turnPoints)
+                {
+                    if (ghost.IntersectsWith(turnPoint) && !ghost.onTurnPoint) // If it intersects with this turn point and it wasn't already on a turn point
+                    {
+                        ghost.onTurnPoint = true;
+                        ghost.onTurnPointIndex = index;
+
+                        List<String> possibleDirections = new List<String>();
+
+                        if (turnPoint.up)
+                        {
+                            possibleDirections.Add("up");
+                        }
+
+                        if (turnPoint.down)
+                        {
+                            possibleDirections.Add("down");
+                        }
+
+                        if (turnPoint.left)
+                        {
+                            possibleDirections.Add("left");
+                        }
+
+                        if (turnPoint.right)
+                        {
+                            possibleDirections.Add("right");
+                        }
+
+                        // Variable to store what direction is opposite of where the ghost's current direction
+                        String oppositeDirection = "";
+
+                        // Store the direction opposite of the ghost's current direction
+                        switch (ghost.direction)
+                        {
+                            case "up":
+                                oppositeDirection = "down";
+                                break;
+                            case "down":
+                                oppositeDirection = "up";
+                                break;
+                            case "left":
+                                oppositeDirection = "right";
+                                break;
+                            case "right":
+                                oppositeDirection = "left";
+                                break;
+                        }
+
+                        // Remove the opposite direction (so that the ghost doesn't go backwards)
+                        possibleDirections.Remove(oppositeDirection);
+
+                        // Randomly set the ghost's direction to one of the possible directions
+                        ghost.direction = possibleDirections[randGen.Next(0, possibleDirections.Count())];
+
+                        break;
+                    }
+                    else if (ghost.onTurnPoint && !ghost.IntersectsWith(turnPoint) && ghost.onTurnPointIndex == index) // Update if this is the turn point it should be on, but this is no longer true
+                    {
+                        ghost.onTurnPoint = false;
+                    }
+
+                    index++;
+                }
+
+                // Move the ghosts
+                ghost.Move();
+
+                // If the ghost is now off the screen (by travelling through the tunnel), move the ghost to the other end of the tunnel
+                if (ghost.x < 0 - ghost.size)
+                {
+                    ghost.x = 336;
+                }
+                else if (ghost.x > 336)
+                {
+                    ghost.x = 0 - ghost.size;
+                }
+
+                // If the ghost reached the player, end game
+                if (hero.IntersectsWith(ghost))
+                {
+                    gameEngine.Enabled = false;
+                    GameOverScreen.won = false;
+
+                    SoundPlayer player = new SoundPlayer(Properties.Resources.death);
+                    player.Play();
+
+                    Form1.ChangeScreen(this, new GameOverScreen());
+                }
+            }
+
+            // Check if the player collected any points
             foreach (List<PointDot> pointDots in pointDotsList)
             {
                 foreach (PointDot pointDot in pointDots)
@@ -140,8 +253,14 @@ namespace PacMan
                         score += 10;
                         scoreLabel.Text = $"{score}";
 
-                        if (score == 2440)
+                        if (score == 2440) // End game if the player collects all point dots 2440
                         {
+                            gameEngine.Enabled = false;
+                            GameOverScreen.won = true;
+
+                            SoundPlayer player = new SoundPlayer(Properties.Resources.win);
+                            player.Play();
+
                             Form1.ChangeScreen(this, new GameOverScreen());
                         }
 
@@ -153,8 +272,10 @@ namespace PacMan
             Refresh();
         }
 
+        // Method for painting objects to screen
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
+            // Paint the walls
             foreach (Point[] wall in walls1)
             {
                 e.Graphics.DrawPolygon(bluePen, wall);
@@ -165,6 +286,7 @@ namespace PacMan
                 e.Graphics.DrawRectangle(bluePen, wall);
             }
 
+            // Paint the white point dots
             foreach (List<PointDot> pointDots in pointDotsList)
             {
                 foreach (PointDot pointDot in pointDots)
@@ -174,6 +296,7 @@ namespace PacMan
                 }
             }
 
+            // Paint the player
             if (mouthOpen)
             {
                 switch (hero.direction)
@@ -201,8 +324,16 @@ namespace PacMan
                 e.Graphics.DrawEllipse(yellowPen, hero.x, hero.y, hero.size, hero.size);
                 e.Graphics.FillEllipse(yellowBrush, hero.x, hero.y, hero.size, hero.size);
             }
+
+            // Paint the ghosts
+            foreach(Ghost ghost in ghosts)
+            {
+                e.Graphics.DrawRectangle(ghost.pen, ghost.x, ghost.y, ghost.size, ghost.size);
+                e.Graphics.FillRectangle(ghost.solidBrush, ghost.x, ghost.y, ghost.size, ghost.size);
+            }
         }
 
+        // Method for tracking when the player presses a key
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             switch (e.KeyCode)
@@ -222,6 +353,7 @@ namespace PacMan
             }
         }
 
+        // Method for tracking when the player releases a key
         private void GameScreen_KeyUp(object sender, KeyEventArgs e)
         {
             string direction = "none";
@@ -248,6 +380,7 @@ namespace PacMan
             }
         }
 
+        // Method for creating all the point dots
         public void CreatePointDots(int index, int x, int y, int numDots, bool horizontal)
         {
             pointDotsList.Add(new List<PointDot>());
@@ -268,31 +401,65 @@ namespace PacMan
             }
         }
 
-        public bool CheckTurnPoints(bool b, string direction)
+        // Check if the object intersects with any of the turn points. If it does, it returns whether or not it can move in the desired direction. If it doesn't, it returns the set default value (bool b)
+        public bool CheckTurnPoints(bool b, string direction, object obj)
         {
-            bool b2 = b;
-
-            foreach (TurnPoint turnPoint in turnPoints)
+            bool b2 = b; // Set it to given default value
+            
+            if (obj is Player) // Check if it's the player. If not, then it's a ghost.
             {
-                if (hero.IntersectsWith(turnPoint))
-                {
-                    switch (direction)
-                    {
-                        case "up":
-                            b2 = turnPoint.up;
-                            break;
-                        case "down":
-                            b2 = turnPoint.down;
-                            break;
-                        case "left":
-                            b2 = turnPoint.left;
-                            break;
-                        case "right":
-                            b2 = turnPoint.right;
-                            break;
-                    }
+                Player player = (Player)obj;
 
-                    break;
+                foreach (TurnPoint turnPoint in turnPoints) // Go through turnPoints and check if the player intersects with one of them
+                {
+                    if (player.IntersectsWith(turnPoint))
+                    {
+                        switch (direction)
+                        {
+                            case "up":
+                                b2 = turnPoint.up;
+                                break;
+                            case "down":
+                                b2 = turnPoint.down;
+                                break;
+                            case "left":
+                                b2 = turnPoint.left;
+                                break;
+                            case "right":
+                                b2 = turnPoint.right;
+                                break;
+                        }
+
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                Ghost ghost = (Ghost)obj;
+
+                foreach (TurnPoint turnPoint in turnPoints) // Go through turnPoints and check if the ghost intersects with one of them
+                {
+                    if (ghost.IntersectsWith(turnPoint))
+                    {
+                        switch (direction)
+                        {
+                            case "up":
+                                b2 = turnPoint.up;
+                                break;
+                            case "down":
+                                b2 = turnPoint.down;
+                                break;
+                            case "left":
+                                b2 = turnPoint.left;
+                                break;
+                            case "right":
+                                b2 = turnPoint.right;
+                                break;
+                        }
+
+                        break;
+                    }
                 }
             }
 

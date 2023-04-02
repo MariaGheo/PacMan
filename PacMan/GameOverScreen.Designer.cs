@@ -30,6 +30,7 @@
         {
             this.menuButton = new System.Windows.Forms.Button();
             this.titleLabel = new System.Windows.Forms.Label();
+            this.scoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // menuButton
@@ -54,17 +55,31 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.Font = new System.Drawing.Font("OCR A Extended", 22F);
             this.titleLabel.ForeColor = System.Drawing.Color.White;
-            this.titleLabel.Location = new System.Drawing.Point(77, 90);
+            this.titleLabel.Location = new System.Drawing.Point(72, 90);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(194, 32);
             this.titleLabel.TabIndex = 4;
             this.titleLabel.Text = "titleLabel";
+            this.titleLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // scoreLabel
+            // 
+            this.scoreLabel.AutoSize = true;
+            this.scoreLabel.Font = new System.Drawing.Font("OCR A Extended", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scoreLabel.ForeColor = System.Drawing.Color.White;
+            this.scoreLabel.Location = new System.Drawing.Point(91, 122);
+            this.scoreLabel.Name = "scoreLabel";
+            this.scoreLabel.Size = new System.Drawing.Size(140, 23);
+            this.scoreLabel.TabIndex = 5;
+            this.scoreLabel.Text = "scoreLabel";
+            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // GameOverScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.titleLabel);
             this.Controls.Add(this.menuButton);
             this.Name = "GameOverScreen";
@@ -78,5 +93,6 @@
 
         private System.Windows.Forms.Button menuButton;
         private System.Windows.Forms.Label titleLabel;
+        private System.Windows.Forms.Label scoreLabel;
     }
 }

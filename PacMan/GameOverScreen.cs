@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace PacMan
 {
@@ -17,6 +18,7 @@ namespace PacMan
         public GameOverScreen()
         {
             InitializeComponent();
+
             if (won)
             {
                 titleLabel.Text = "You won!";
@@ -25,10 +27,15 @@ namespace PacMan
             {
                 titleLabel.Text = "Try again";
             }
+
+            scoreLabel.Text = $"Score: {GameScreen.score}";
         }
 
         private void menuButton_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer(Properties.Resources.beep);
+            player.Play();
+
             Form1.ChangeScreen(this, new MenuScreen());
         }
     }

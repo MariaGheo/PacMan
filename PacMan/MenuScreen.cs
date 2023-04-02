@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace PacMan
 {
@@ -19,6 +20,9 @@ namespace PacMan
 
         private void startButton_Click(object sender, EventArgs e)
         {
+            SoundPlayer player = new SoundPlayer(Properties.Resources.beep);
+            player.Play();
+
             Form1.ChangeScreen(this, new GameScreen());
         }
 

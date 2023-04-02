@@ -47,6 +47,7 @@
             this.scoreLabel.Size = new System.Drawing.Size(13, 13);
             this.scoreLabel.TabIndex = 1;
             this.scoreLabel.Text = "0";
+            this.scoreLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // GameScreen
             // 

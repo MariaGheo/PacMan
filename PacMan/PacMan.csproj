@@ -64,6 +64,7 @@
     <Compile Include="GameScreen.Designer.cs">
       <DependentUpon>GameScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ghost.cs" />
     <Compile Include="MenuScreen.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -112,6 +113,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\game_title.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\beep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\collect.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\winBeep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fall.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\death.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\win.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

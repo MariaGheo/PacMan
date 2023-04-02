@@ -7,18 +7,24 @@ using System.Drawing;
 
 namespace PacMan
 {
-    internal class Player
+    internal class Ghost
     {
         public int x, y;
         public int size = 14;
         public int speed = 2;
+        public int onTurnPointIndex = 0;
+        public bool onTurnPoint = false;
         public string direction;
+        public Pen pen;
+        public SolidBrush solidBrush;
 
-        public Player(int _x, int _y, string _direction)
+        public Ghost (int _x, int _y, string _direction, Pen _pen, SolidBrush _solidBrush)
         {
             x = _x;
             y = _y;
             direction = _direction;
+            pen = _pen;
+            solidBrush = _solidBrush;
         }
 
         public bool IntersectsWith(TurnPoint turnPoint)
@@ -36,29 +42,6 @@ namespace PacMan
             return intersection;
         }
 
-        public bool IntersectsWith(PointDot pointDot)
-        {
-            bool intersection = false;
-
-            Rectangle point = new Rectangle(pointDot.x, pointDot.y, pointDot.size, pointDot.size);
-            Rectangle playerArea = new Rectangle(x, y, size, size);
-
-            if (playerArea.Contains(point))
-            {
-                intersection = true;
-            }
-
-            return intersection;
-        }
-
-        public bool IntersectsWith(Ghost ghost)
-        {
-            Rectangle playerArea = new Rectangle(x, y, size, size);
-            Rectangle ghostArea = new Rectangle(ghost.x, ghost.y, ghost.size, ghost.size);
-
-            return playerArea.IntersectsWith(ghostArea);
-        }
-
         public void Move()
         {
             switch (direction)
@@ -73,7 +56,7 @@ namespace PacMan
                     x -= speed;
                     break;
                 case "right":
-                   x += speed;
+                    x += speed;
                     break;
             }
         }
