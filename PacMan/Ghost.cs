@@ -29,21 +29,16 @@ namespace PacMan
             points = new Point[] { new Point(x + 1, y + 6), new Point(x + 1, y + size), new Point(x + 3, y + size - 2), new Point(x + 5, y + size), new Point(x + 7, y + size - 2), new Point(x + 9, y + size), new Point(x + 11, y + size - 2), new Point(x + 13, y + size), new Point(x + 13, y + 6) };
         }
 
+        // To check intersection with a TurnPoint
         public bool IntersectsWith(TurnPoint turnPoint)
         {
-            bool intersection = false;
-
             Rectangle turnArea = new Rectangle(turnPoint.x, turnPoint.y, turnPoint.size, turnPoint.size);
             Rectangle midPoint = new Rectangle(size / 2 + x, size / 2 + y, 1, 1);
-
-            if (turnArea.Contains(midPoint))
-            {
-                intersection = true;
-            }
-
-            return intersection;
+            
+            return turnArea.Contains(midPoint);
         }
 
+        // To move the ghost
         public void Move()
         {
             switch (direction)
