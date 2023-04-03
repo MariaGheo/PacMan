@@ -17,6 +17,7 @@ namespace PacMan
         public string direction;
         public Pen pen;
         public SolidBrush solidBrush;
+        public Point[] points = new Point[9];
 
         public Ghost (int _x, int _y, string _direction, Pen _pen, SolidBrush _solidBrush)
         {
@@ -25,6 +26,7 @@ namespace PacMan
             direction = _direction;
             pen = _pen;
             solidBrush = _solidBrush;
+            points = new Point[] { new Point(x + 1, y + 6), new Point(x + 1, y + size), new Point(x + 3, y + size - 2), new Point(x + 5, y + size), new Point(x + 7, y + size - 2), new Point(x + 9, y + size), new Point(x + 11, y + size - 2), new Point(x + 13, y + size), new Point(x + 13, y + 6) };
         }
 
         public bool IntersectsWith(TurnPoint turnPoint)
@@ -59,6 +61,9 @@ namespace PacMan
                     x += speed;
                     break;
             }
+
+            // Update points array
+            points = new Point[] { new Point(x + 1, y + 6), new Point(x + 1, y + size), new Point(x + 3, y + size - 2), new Point(x + 5, y + size), new Point(x + 7, y + size - 2), new Point(x + 9, y + size), new Point(x + 11, y + size - 2), new Point(x + 13, y + size), new Point(x + 13, y + 6) };
         }
     }
 }

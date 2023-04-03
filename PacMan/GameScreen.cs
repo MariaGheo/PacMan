@@ -226,10 +226,14 @@ namespace PacMan
                 if (ghost.x < 0 - ghost.size)
                 {
                     ghost.x = 336;
+
+                    ghost.points = new Point[] { new Point(ghost.x + 1, ghost.y + 6), new Point(ghost.x + 1, ghost.y + ghost.size), new Point(ghost.x + 3, ghost.y + ghost.size - 2), new Point(ghost.x + 5, ghost.y + ghost.size), new Point(ghost.x + 7, ghost.y + ghost.size - 2), new Point(ghost.x + 9, ghost.y + ghost.size), new Point(ghost.x + 11, ghost.y + ghost.size - 2), new Point(ghost.x + 13, ghost.y + ghost.size), new Point(ghost.x + 13, ghost.y + 6) };
                 }
                 else if (ghost.x > 336)
                 {
                     ghost.x = 0 - ghost.size;
+
+                    ghost.points = new Point[] { new Point(ghost.x + 1, ghost.y + 6), new Point(ghost.x + 1, ghost.y + ghost.size), new Point(ghost.x + 3, ghost.y + ghost.size - 2), new Point(ghost.x + 5, ghost.y + ghost.size), new Point(ghost.x + 7, ghost.y + ghost.size - 2), new Point(ghost.x + 9, ghost.y + ghost.size), new Point(ghost.x + 11, ghost.y + ghost.size - 2), new Point(ghost.x + 13, ghost.y + ghost.size), new Point(ghost.x + 13, ghost.y + 6) };
                 }
 
                 // If the ghost reached the player, end game
@@ -331,8 +335,10 @@ namespace PacMan
             // Paint the ghosts
             foreach(Ghost ghost in ghosts)
             {
-                e.Graphics.DrawRectangle(ghost.pen, ghost.x, ghost.y, ghost.size, ghost.size);
-                e.Graphics.FillRectangle(ghost.solidBrush, ghost.x, ghost.y, ghost.size, ghost.size);
+                e.Graphics.DrawEllipse(ghost.pen, ghost.x + 1, ghost.y, ghost.size - 2, ghost.size - 2);
+                e.Graphics.FillEllipse(ghost.solidBrush, ghost.x + 1, ghost.y, ghost.size - 2, ghost.size - 2);
+                e.Graphics.DrawPolygon(ghost.pen, ghost.points);
+                e.Graphics.FillPolygon(ghost.solidBrush, ghost.points);
             }
         }
 
